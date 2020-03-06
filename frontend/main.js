@@ -58,6 +58,24 @@ const addProductInCart = async () => {
     console.log(result)
     console.log(productInCart)
 }
+const addOrder = async () => {
+    let order  = {
+        customerId: document.querySelector('#customerId').value,
+        cartId: document.querySelector('#cartIdOrder').value,
+        totalPrice: document.querySelector('#totalPrice').value,
+        timestamp: Date.now(),
+    }
+    let result = await fetch('/rest/orders', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(order)
+    })
+    result = await result.json()
+    console.log(result)
+    console.log(order)
+}
 
 const getProducts = async () =>{
     let products = await fetch('/rest/products')

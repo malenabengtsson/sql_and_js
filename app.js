@@ -78,6 +78,7 @@ res.json({
     products
 })
 })
+//Products
 app.post('/rest/products', async (req, res) =>{
     console.log(req.body)
     const values = {
@@ -100,6 +101,7 @@ res.json({
     productsXcarts
 })
 })
+//X
 app.post('/rest/productsXcarts', async (req, res) =>{
     console.log(req.body)
     const values = {
@@ -109,6 +111,30 @@ app.post('/rest/productsXcarts', async (req, res) =>{
     }
     try{
     await db.all('INSERT INTO productsXcarts (productId, cartId, amount) VALUES($productId, $cartId, $amount)', values)
+    res.json({message: 'Successfully added'})
+    } catch(e){
+        res.json({message: 'Failed'})
+        console.log(e)
+    }
+})
+//Order
+app.get('/rest/orders', async (req, res) =>{
+    const limit = req.query.limit ?' LIMIT ' + req.query.limit :''
+let orders = await db.all('SELECT * FROM orders ' + limit)
+res.json({
+    orders
+})
+})
+app.post('/rest/orders', async (req, res) =>{
+    console.log(req.body)
+    const values = {
+        $customerId: req.body.customerId,
+        $cartId: req.body.cartId,
+        $totalPrice: req.body.totalPrice,
+        $timestamp: req.body.timestamp,
+    }
+    try{
+    await db.all('INSERT INTO products (customerId,cartId,totalPrice,timestamp) VALUES($customerId,$cartId,$totalPrice,$timestamp)', values)
     res.json({message: 'Successfully added'})
     } catch(e){
         res.json({message: 'Failed'})
