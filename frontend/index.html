@@ -7,6 +7,32 @@
 </head>
 <body>
     <h1>HEllo</h1>
-    <script src="./main.js"></script>
+    <input type="text"> <br>
+    <button onclick="getCustomers()">Klicka mig</button>
+    <script>
+        const postCostumer = async () => {
+            let user = {
+                name: 'Lukas Andersson',
+                email: ' la@gmail.com',
+                password: 'djd262',
+                cartId: 11
+            }
+            let result = await fetch('/rest/customers', {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+        
+            })
+            result = await result.json()
+            console.log(result)
+        }
+        const getCustomers = async () =>{
+            let customers = await fetch('/rest/customers')
+            customers = await customers.json()
+            console.log(customers)
+        }
+        </script>
 </body>
 </html>
