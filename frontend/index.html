@@ -6,33 +6,25 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>HEllo</h1>
-    <input type="text"> <br>
+    <h1>Lägg till produkt generellt</h1>
+    <input type="text" id="productName" placeholder="Product name" required> <br>
+    <input type="text" id="productDescription" placeholder="Product description" required> <br>
+    <input type="number" id="productPrice" placeholder="Product price" required> <br>
+    <button type="submit" onclick="addProduct()">Lägg till produkt</button>
     <button onclick="getCustomers()">Klicka mig</button>
-    <script>
-        const postCostumer = async () => {
-            let user = {
-                name: 'Lukas Andersson',
-                email: ' la@gmail.com',
-                password: 'djd262',
-                cartId: 11
-            }
-            let result = await fetch('/rest/customers', {
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user)
-        
-            })
-            result = await result.json()
-            console.log(result)
-        }
-        const getCustomers = async () =>{
-            let customers = await fetch('/rest/customers')
-            customers = await customers.json()
-            console.log(customers)
-        }
-        </script>
+    <button onclick="getProducts()">Hämta produkter</button>
+    <br><br><br>
+    <h1>Lägg till i varukorg</h1>
+    <input type="text" id="productName" placeholder="Product name" required> <br>
+    <input type="text" id="productDescription" placeholder="Product description" required> <br>
+    <input type="number" id="productPrice" placeholder="Product price" required> <br>
+    <button type="submit" onclick="addProduct()">Lägg till produkt</button>
+    <br><br><br>
+    <h1>Lägg till i varukorg med id</h1>
+    <input type="number" id="productId" placeholder="product ID" required> <br>
+    <input type="number" id="cartId" placeholder="cart ID" required> <br>
+    <input type="number" id="amount" placeholder="amount" required> <br>
+    <button type="submit" onclick="addProductInCart()">Lägg till produkt i min varukrg</button>
+    <script src="main.js"></script>
 </body>
 </html>

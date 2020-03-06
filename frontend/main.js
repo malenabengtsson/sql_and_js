@@ -1,14 +1,11 @@
-console.log('Hello from Frontend')
 
-const getCostumers = async () =>{
+const getCustomers = async () =>{
     let customers = await fetch('/rest/customers')
     customers = await customers.json()
     console.log(customers)
 }
 
-//getCostumers()
-
-const postCostumer = async () => {
+const postCustomer = async () => {
     let user = {
         name: 'Lukas Andersson',
         email: ' la@gmail.com',
@@ -26,4 +23,44 @@ const postCostumer = async () => {
     result = await result.json()
     console.log(result)
 }
-postCostumer()
+
+const addProduct = async () => {
+    let product = {
+        name: document.querySelector('#productName').value,
+        description: document.querySelector('#productDescription').value,
+        price: document.querySelector('#productPrice').value,
+    }
+    let result = await fetch('/rest/products', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(product)
+    })
+    result = await result.json()
+    console.log(result)
+    console.log(product)
+}
+const addProductInCart = async () => {
+    let productInCart  = {
+        productId: document.querySelector('#productId').value,
+        cartId: document.querySelector('#cartId').value,
+        amount: document.querySelector('#amount').value,
+    }
+    let result = await fetch('/rest/productsXcarts', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(productInCart)
+    })
+    result = await result.json()
+    console.log(result)
+    console.log(productInCart)
+}
+
+const getProducts = async () =>{
+    let products = await fetch('/rest/products')
+    products = await products.json()
+    console.log(products)
+}

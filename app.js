@@ -71,7 +71,50 @@ res.json({message: 'Success!'})
     
 }
 })
-
+app.get('/rest/products', async (req, res) =>{
+    const limit = req.query.limit ?' LIMIT ' + req.query.limit :''
+let products = await db.all('SELECT * FROM products ' + limit)
+res.json({
+    products
+})
+})
+app.post('/rest/products', async (req, res) =>{
+    console.log(req.body)
+    const values = {
+        $name: req.body.name,
+        $description: req.body.description,
+        $price: req.body.price
+    }
+    try{
+    await db.all('INSERT INTO products (name, description,price) VALUES($name, $description,$price)', values)
+    res.json({message: 'Successfully added'})
+    } catch(e){
+        res.json({message: 'Failed'})
+        console.log(e)
+    }
+})
+app.get('/rest/productsXcarts', async (req, res) =>{
+    const limit = req.query.limit ?' LIMIT ' + req.query.limit :''
+let productsXcarts = await db.all('SELECT * FROM productsXcarts ' + limit)
+res.json({
+    productsXcarts
+})
+})
+app.post('/rest/productsXcarts', async (req, res) =>{
+    console.log(req.body)
+    const values = {
+        $productId: req.body.productId,
+        $cartId: req.body.cartId,
+        $amount: req.body.amount
+    }
+    try{
+    await db.all('INSERT INTO productsXcarts (productId, cartId, amount) VALUES($productId, $cartId, $amount)', values)
+    res.json({message: 'Successfully added'})
+    } catch(e){
+        res.json({message: 'Failed'})
+        console.log(e)
+    }
+})
 app.use(express.static(__dirname +'/frontend'))
 
 app.get('*', (req, res) =>{
